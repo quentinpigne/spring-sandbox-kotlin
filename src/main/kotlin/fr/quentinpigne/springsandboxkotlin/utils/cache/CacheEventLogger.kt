@@ -1,4 +1,4 @@
-package utils.cache
+package fr.quentinpigne.springsandboxkotlin.utils.cache
 
 import org.ehcache.event.CacheEvent
 import org.ehcache.event.CacheEventListener
