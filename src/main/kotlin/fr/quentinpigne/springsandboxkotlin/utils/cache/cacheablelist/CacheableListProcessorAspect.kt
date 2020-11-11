@@ -29,14 +29,14 @@ class CacheableListProcessorAspect(private val cacheManager: CacheManager) {
         val listParameter = joinPoint.args[0] as List<Any>
 
         // Getting all items of the list already stored in the cache
-        val cachedItemByCacheKey = cache.getAll(listParameter.map { item: Any -> getCacheKey(method, item) as SimpleKey }.toSet())
+        val cachedItemByCacheKey = cache.getAll(listParameter.map { getCacheKey(method, it) as SimpleKey }.toSet())
 
         // Computing list of parameters not found in cache
-        val remainingParameters = listParameter.filterNot { item: Any -> cachedItemByCacheKey.containsKey(getCacheKey(method, item)) }.distinct()
+        val remainingParameters = listParameter.filterNot { cachedItemByCacheKey.containsKey(getCacheKey(method, it)) }.distinct()
 
         // No need to call initial method if everything was found in the cache
         if (remainingParameters.isEmpty()) {
-            return listParameter.map { item: Any -> cachedItemByCacheKey[getCacheKey(method, item)] }
+            return listParameter.map { cachedItemByCacheKey[getCacheKey(method, it)] }
         }
 
         // Getting non cached items by calling initial method
@@ -44,10 +44,11 @@ class CacheableListProcessorAspect(private val cacheManager: CacheManager) {
 
         // Grouping non cached item by corresponding parameter and caching it
         val nonCachedItemByParameter = remainingParameters.zip(nonCachedItems).toMap()
-        cache.putAll(nonCachedItemByParameter.filter { entry -> entry.value != null }.mapKeys { entry -> getCacheKey(method, entry.key) })
+        cache.putAll(nonCachedItemByParameter.filter { it.value != null }.mapKeys { getCacheKey(method, it.key) })
 
-        return listParameter.map { item: Any ->
-            if (cachedItemByCacheKey.containsKey(getCacheKey(method, item))) cachedItemByCacheKey[getCacheKey(method, item)] else nonCachedItemByParameter[item]
+        return listParameter.map {
+            if (cachedItemByCacheKey.containsKey(getCacheKey(method, it))) cachedItemByCacheKey[getCacheKey(method, it)] else
+                nonCachedItemByParameter[it]
         }
     }
 
