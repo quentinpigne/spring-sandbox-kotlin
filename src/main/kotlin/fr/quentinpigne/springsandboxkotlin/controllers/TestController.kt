@@ -16,7 +16,7 @@ class TestController(
 ) {
 
     @GetMapping(value = [""], params = ["test"])
-    fun test(@NotEmpty(message = "Test parameter cannot be empty.") @RequestParam("test") test: List<Int?>): List<Int?> {
+    fun test(@NotEmpty(message = "Test parameter cannot be empty.") @RequestParam("test") test: List<Int>): List<Int?> {
         return testService.longRunningTreatment(test)
     }
 }
