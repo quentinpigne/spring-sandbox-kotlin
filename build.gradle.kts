@@ -30,6 +30,10 @@ dependencies {
 	implementation("javax.cache:cache-api")
 	implementation("org.ehcache:ehcache")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
+	implementation("com.sndyuk:logback-more-appenders:1.8.1")
+	implementation("org.fluentd:fluent-logger:0.3.4")
+	implementation("org.komamitsu:fluency-core:2.4.1")
+	implementation("org.komamitsu:fluency-fluentd:2.4.1")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {

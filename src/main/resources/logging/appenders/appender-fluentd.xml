@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+    <appender name="FLUENT_SYNC" class="ch.qos.logback.more.appenders.DataFluentAppender">
+
+        <!-- Tag for Fluentd. Farther information: http://docs.fluentd.org/articles/config-file -->
+        <tag>spring</tag>
+
+        <!-- Host name/address and port number which Flentd placed -->
+        <remoteHost>fluentd</remoteHost>
+        <port>24224</port>
+
+        <!-- [Optional] Additional fields(Pairs of key: value) -->
+        <additionalField>
+            <key>service</key>
+            <value>spring-sandbox-kotlin</value>
+        </additionalField>
+    </appender>
+
+    <appender name="FLUENT" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- Max queue size of logs which is waiting to be sent (When it reach to the max size, the log will be disappeared). -->
+        <queueSize>999</queueSize>
+        <!-- Never block when the queue becomes full. -->
+        <neverBlock>true</neverBlock>
+        <!-- The default maximum queue flush time allowed during appender stop.
+             If the worker takes longer than this time it will exit, discarding any remaining items in the queue.
+             10000 millis
+         -->
+        <maxFlushTime>1000</maxFlushTime>
+        <appender-ref ref="FLUENT_SYNC" />
+    </appender>
+</included>
