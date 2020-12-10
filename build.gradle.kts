@@ -32,7 +32,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.liquibase:liquibase-core")
 	implementation("javax.cache:cache-api")
-	implementation("org.ehcache:ehcache")
+	implementation("org.ehcache:ehcache-clustered")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 	implementation("com.sndyuk:logback-more-appenders:1.8.1")
 	implementation("org.fluentd:fluent-logger:0.3.4")
