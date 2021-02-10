@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
-    <springProfile name="!dev">
-        <include
-            resource="org/springframework/boot/logging/logback/base.xml" />
-        <include
-            resource="logging/appenders/appender-fluency.xml" />
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <springProfile name="docker">
+        <include resource="logging/appenders/appender-fluency.xml" />
         <root level="INFO">
             <appender-ref ref="FLUENCY" />
-        </root>
-    </springProfile>
-    <springProfile name="dev">
-        <include
-            resource="org/springframework/boot/logging/logback/defaults.xml" />
-        <include
-            resource="org/springframework/boot/logging/logback/file-appender.xml" />
-        <root level="INFO">
-            <appender-ref ref="FILE" />
         </root>
     </springProfile>
 </configuration>
